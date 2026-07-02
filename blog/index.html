@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writing · Aaron Thomas</title>
+  <meta name="description" content="Notes on building software. AI tooling, Go services, and the craft of shipping projects, by Aaron Thomas." />
+  <meta name="color-scheme" content="dark" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-orbs" aria-hidden="true">
+    <span class="orb orb--1"></span>
+    <span class="orb orb--2"></span>
+  </div>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <header class="nav is-scrolled" id="nav">
+    <a href="../index.html" class="nav__brand">
+      <span class="nav__mark">AT</span>
+      <span class="nav__name">Aaron&nbsp;Thomas</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#stack">Stack</a>
+      <a href="./index.html">Writing</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+    <a class="nav__cta" href="https://github.com/ATKasem" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5Z"/></svg>
+      GitHub
+    </a>
+    <button class="nav__burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span></button>
+  </header>
+
+  <main class="page">
+    <div class="blog-head reveal">
+      <p class="section__kicker">Writing</p>
+      <h1>Notes from the build.</h1>
+      <p>Short, honest writeups on the things I am making. AI tooling, Go services, and the messy, satisfying work of actually shipping projects.</p>
+    </div>
+
+    <div class="posts">
+      <a href="./building-an-ai-qa-tool.html" class="post-card reveal">
+        <div class="post-card__date"><b>02</b>Jul '26</div>
+        <div class="post-card__main">
+          <h3>How I built a QA tool with AI</h3>
+          <p>Turning plain english test requests into real briefs, real checks, and a verdict you can act on. Plus the tradeoffs of keeping it small.</p>
+          <div class="post-card__tags"><span>AI</span><span>React</span><span>Express</span><span>QA</span></div>
+        </div>
+        <svg class="post-card__arrow" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+
+      <a href="./api-workflow-builder.html" class="post-card reveal">
+        <div class="post-card__date"><b>30</b>Jun '26</div>
+        <div class="post-card__main">
+          <h3>Building a visual API workflow builder (no AI)</h3>
+          <p>A drag and drop canvas for wiring up API flows, built with React Flow and TypeScript. Pure engineering and UX, zero AI.</p>
+          <div class="post-card__tags"><span>TypeScript</span><span>React Flow</span><span>Zustand</span><span>UX</span></div>
+        </div>
+        <svg class="post-card__arrow" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+
+      <div class="post-card post-card--soon reveal">
+        <div class="post-card__date"><b>··</b>Soon</div>
+        <div class="post-card__main">
+          <h3>Keeping API keys out of AI agent prompts</h3>
+          <p>Why I put a Go service between a DigitalOcean Gradient AI agent and the real data. SSRF protection, rate limiting, and health checks.</p>
+          <div class="post-card__tags"><span>Go</span><span>AI Agents</span><span>Security</span></div>
+        </div>
+        <svg class="post-card__arrow" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <span>© <span id="year"></span> Aaron Thomas</span>
+    <span class="footer__mid">Designed and built from scratch. No templates.</span>
+    <a href="../index.html#top" class="footer__top">Home ↑</a>
+  </footer>
+
+  <script src="../main.js"></script>
+</body>
+</html>
