@@ -278,7 +278,7 @@
       .map((o) => {
         const avatar = 'https://github.com/' + encodeURIComponent(o.org) + '.png?size=64';
         return (
-          '<a class="marquee__org" href="https://github.com/' +
+          '<a class="marquee__chip marquee__org" href="https://github.com/' +
           escapeHtml(o.org) +
           '" target="_blank" rel="noopener">' +
           '<img src="' +
