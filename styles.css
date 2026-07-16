@@ -185,14 +185,17 @@ em { color: #d7d2ff; font-style: normal; font-weight: 500; }
   color: var(--muted-2);
 }
 
-/* Company strip — full width; same 32s scroll as frameworks */
+/* Company strip — full width; slower than the frameworks marquee */
 .marquee--orgs {
   width: 100%;
   margin: 0;
   padding: 16px 0;
   border-radius: 0;
 }
-.marquee--orgs .marquee__track { gap: 16px; }
+.marquee--orgs .marquee__track {
+  gap: 16px;
+  animation-duration: 64s;
+}
 .marquee--orgs:hover .marquee__track { animation-play-state: paused; }
 .marquee__dot {
   font-family: "Sora", sans-serif;
