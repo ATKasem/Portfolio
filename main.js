@@ -88,7 +88,10 @@
   const REPO_LIMIT = 8;
   const ORG_LIMIT = 14;
   /* Prefer deploy-time snapshot — unauthenticated Search API is only 10 req/min */
-  const SNAPSHOT_URL = new URL('data/github.json', window.location.href).href;
+  const pageDir = window.location.pathname
+    .replace(/index\.html$/i, '')
+    .replace(/\/?$/, '/');
+  const SNAPSHOT_URL = `${window.location.origin}${pageDir}data/github.json`;
 
   /* Curated Work + learning noise — excluded from "Also on GitHub" */
   const HIDDEN_REPOS = new Set([
