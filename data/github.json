@@ -1,5 +1,5 @@
 {
-  "fetchedAt": 1784228934647,
+  "fetchedAt": 1784231666859,
   "merged": {
     "total": 10,
     "items": [
@@ -72,7 +72,7 @@
         "title": "fix(bedrockagentcore): `Memory` does not set defaultChild, breaking applyRemovalPolicy",
         "html_url": "https://github.com/aws/aws-cdk/pull/38282",
         "repo": "aws/aws-cdk",
-        "date": "2026-07-16T18:58:11Z"
+        "date": "2026-07-16T19:51:05Z"
       },
       {
         "title": "fix(agents): claude-cli sessions wiped by preflight byte-guard compaction",
@@ -139,6 +139,84 @@
         "html_url": "https://github.com/genkit-ai/genkit/pull/5733",
         "repo": "genkit-ai/genkit",
         "date": "2026-07-14T05:58:11Z"
+      },
+      {
+        "title": "fix(js/plugins/vercel-ai): drop misleading @ai-sdk/react peer dependency",
+        "html_url": "https://github.com/genkit-ai/genkit/pull/5732",
+        "repo": "genkit-ai/genkit",
+        "date": "2026-07-14T04:34:21Z"
+      },
+      {
+        "title": "fix(vite): skip serve targets for library projects without a server config",
+        "html_url": "https://github.com/nrwl/nx/pull/36325",
+        "repo": "nrwl/nx",
+        "date": "2026-07-13T20:54:01Z"
+      },
+      {
+        "title": "fix(ai): adapt generated skill commands to the workspace package manager",
+        "html_url": "https://github.com/nrwl/nx/pull/36323",
+        "repo": "nrwl/nx",
+        "date": "2026-07-13T20:53:57Z"
+      },
+      {
+        "title": "Throw JsonSyntaxException for null map keys in array form",
+        "html_url": "https://github.com/google/gson/pull/3056",
+        "repo": "google/gson",
+        "date": "2026-07-13T20:47:46Z"
+      },
+      {
+        "title": "fix(client): include runId in WorkflowExecutionAlreadyStartedError",
+        "html_url": "https://github.com/temporalio/sdk-typescript/pull/2206",
+        "repo": "temporalio/sdk-typescript",
+        "date": "2026-07-13T20:00:29Z"
+      },
+      {
+        "title": "fix(stats): render BoxPlot outliers on top of the box",
+        "html_url": "https://github.com/airbnb/visx/pull/2026",
+        "repo": "airbnb/visx",
+        "date": "2026-07-13T19:09:59Z"
+      },
+      {
+        "title": "fix(geo): allow FeatureCollection in fitExtent/fitSize types",
+        "html_url": "https://github.com/airbnb/visx/pull/2025",
+        "repo": "airbnb/visx",
+        "date": "2026-07-13T19:09:58Z"
+      },
+      {
+        "title": "fix(stats): handle zero-IQR samples in computeStats",
+        "html_url": "https://github.com/airbnb/visx/pull/2024",
+        "repo": "airbnb/visx",
+        "date": "2026-07-13T19:09:57Z"
+      },
+      {
+        "title": "fix(node-server): correct getRecording typings",
+        "html_url": "https://github.com/Netflix/pollyjs/pull/510",
+        "repo": "Netflix/pollyjs",
+        "date": "2026-07-13T19:09:55Z"
+      },
+      {
+        "title": "fix(orm): parenthesize isNull/isNotNull so they are safe as operands",
+        "html_url": "https://github.com/drizzle-team/drizzle-orm/pull/6011",
+        "repo": "drizzle-team/drizzle-orm",
+        "date": "2026-07-12T21:47:05Z"
+      },
+      {
+        "title": "IAM: Return an empty array instead of null from the display endpoint",
+        "html_url": "https://github.com/grafana/grafana/pull/128249",
+        "repo": "grafana/grafana",
+        "date": "2026-07-11T05:23:59Z"
+      },
+      {
+        "title": "fix(auth): allow long BCP-47 language codes in RecaptchaVerifier",
+        "html_url": "https://github.com/firebase/firebase-js-sdk/pull/10153",
+        "repo": "firebase/firebase-js-sdk",
+        "date": "2026-07-11T04:21:53Z"
+      },
+      {
+        "title": "fix(rds): dbProxyName can mismatch deployed resource due to RDS lowercasing",
+        "html_url": "https://github.com/aws/aws-cdk/pull/38279",
+        "repo": "aws/aws-cdk",
+        "date": "2026-07-10T05:26:03Z"
       }
     ]
   },

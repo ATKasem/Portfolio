@@ -8,7 +8,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const USER = 'ATKasem';
-const PR_LIMIT = 12;
+const PR_LIMIT = 100;
 const REPO_LIMIT = 8;
 const HIDDEN_REPOS = new Set([
   'QAToolProject',

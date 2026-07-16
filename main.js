@@ -82,12 +82,11 @@
      Live GitHub — merged PRs, open PRs, other repos
      ========================================================= */
   const GITHUB_USER = 'ATKasem';
-  const CACHE_KEY = 'atkasem-github-oss-v4';
+  const CACHE_KEY = 'atkasem-github-oss-v5';
   const CACHE_TTL_MS = 30 * 60 * 1000;
-  const PR_LIMIT = 12;
-  const PR_DISPLAY = 4;
+  const PR_LIMIT = 100; /* GitHub search max per page — show the full list in-card */
   const REPO_LIMIT = 6;
-  const ORG_LIMIT = 14;
+  const ORG_LIMIT = 16;
   /* Prefer deploy-time snapshot — unauthenticated Search API is only 10 req/min */
   const pageDir = window.location.pathname
     .replace(/index\.html$/i, '')
@@ -274,15 +273,26 @@
     const track = document.getElementById('org-marquee-track');
     if (!track) return;
 
-    const names = (orgs.length ? orgs : [{ label: 'Open source' }]).map((o) => o.label);
-    const unit = names
-      .flatMap((name) => [
-        '<span>' + escapeHtml(name) + '</span>',
-        '<span aria-hidden="true">•</span>',
-      ])
-      .join('');
+    const list = orgs.length ? orgs : [{ org: GITHUB_USER, label: 'GitHub' }];
+    const unit = list
+      .map((o) => {
+        const avatar = 'https://github.com/' + encodeURIComponent(o.org) + '.png?size=64';
+        return (
+          '<a class="marquee__org" href="https://github.com/' +
+          escapeHtml(o.org) +
+          '" target="_blank" rel="noopener">' +
+          '<img src="' +
+          escapeHtml(avatar) +
+          '" alt="" width="22" height="22" loading="lazy" decoding="async" />' +
+          '<span>' +
+          escapeHtml(o.label) +
+          '</span></a>'
+        );
+      })
+      .join('<span class="marquee__dot" aria-hidden="true">•</span>') +
+      '<span class="marquee__dot" aria-hidden="true">•</span>';
 
-    /* Same pattern as the frameworks marquee: duplicated sequence for -50% loop */
+    /* Duplicate so translateX(-50%) loops seamlessly */
     track.innerHTML = unit + unit;
   };
 
@@ -292,8 +302,7 @@
       el.innerHTML = `<li class="oss__empty">No ${kind} pull requests yet.</li>`;
       return;
     }
-    const shown = items.slice(0, PR_DISPLAY);
-    el.innerHTML = shown
+    el.innerHTML = items
       .map((pr) => {
         const { org, name } = splitRepo(pr.repo);
         return (
