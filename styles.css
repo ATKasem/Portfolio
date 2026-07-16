@@ -238,14 +238,19 @@ em { color: #d7d2ff; font-style: normal; font-weight: 500; }
   transition: border-color .2s, background .2s, color .2s;
 }
 .marquee__chip img,
-.marquee__org img {
+.marquee__org img,
+.marquee__org-icon {
   width: 22px;
   height: 22px;
   border-radius: 6px;
-  object-fit: contain;
+  object-fit: cover;
   background: rgba(255,255,255,.06);
-  padding: 2px;
   box-sizing: border-box;
+}
+.marquee__org-icon--brand {
+  object-fit: contain;
+  padding: 2px;
+  background: #000;
 }
 .marquee__chip:hover,
 .marquee__org:hover {

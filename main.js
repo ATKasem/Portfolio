@@ -276,12 +276,22 @@
     const list = orgs.length ? orgs : [{ org: GITHUB_USER, label: 'GitHub' }];
     const unit = list
       .map((o) => {
-        const avatar = 'https://github.com/' + encodeURIComponent(o.org) + '.png?size=64';
+        const key = String(o.org).toLowerCase();
+        /* Prefer brand marks where the GitHub avatar is not the public logo */
+        const brandIcons = {
+          netflix: 'https://cdn.simpleicons.org/netflix/E50914',
+        };
+        const avatar =
+          brandIcons[key] ||
+          'https://github.com/' + encodeURIComponent(o.org) + '.png?size=64';
+        const iconClass = brandIcons[key] ? ' marquee__org-icon--brand' : '';
         return (
           '<a class="marquee__chip marquee__org" href="https://github.com/' +
           escapeHtml(o.org) +
           '" target="_blank" rel="noopener">' +
-          '<img src="' +
+          '<img class="marquee__org-icon' +
+          iconClass +
+          '" src="' +
           escapeHtml(avatar) +
           '" alt="" width="22" height="22" loading="lazy" decoding="async" />' +
           '<span>' +
