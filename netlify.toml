@@ -1,0 +1,19 @@
+# Netlify configuration for a plain static site (no build step).
+[build]
+  publish = "."
+  command = ""
+
+# Pretty URLs: /blog/ serves blog/index.html, etc.
+[[redirects]]
+  from = "/blog"
+  to = "/blog/"
+  status = 301
+
+# Sensible security headers for a static site.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"

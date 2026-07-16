@@ -37,9 +37,10 @@
     </a>
     <nav class="nav__links" aria-label="Primary">
       <a href="#work">Work</a>
+      <a href="#opensource">Open Source</a>
       <a href="#about">About</a>
       <a href="#stack">Stack</a>
-      <a href="blog/index.html">Writing</a>
+      <a href="blog/index.html">Blog</a>
       <a href="#contact">Contact</a>
     </nav>
     <a class="nav__cta" href="https://github.com/ATKasem" target="_blank" rel="noopener">
@@ -223,11 +224,73 @@
       </div>
     </section>
 
+    <!-- Open Source (live from GitHub) -->
+    <section class="section" id="opensource" data-github-user="ATKasem">
+      <div class="section__head reveal">
+        <p class="section__kicker">
+          02 · Open Source
+          <span class="live-badge" title="Loaded from the GitHub API">
+            <span class="live-badge__dot" aria-hidden="true"></span>
+            Live
+          </span>
+        </p>
+        <h2 class="section__title">Contributions that ship upstream</h2>
+        <p class="section__sub">
+          Merged and open pull requests pulled live from GitHub. New merges and repos show up here
+          automatically — no redeploy needed.
+          <span class="oss__updated" id="oss-updated" hidden></span>
+        </p>
+      </div>
+
+      <div class="oss reveal" id="oss-root" aria-busy="true">
+        <div class="oss__cols">
+          <div class="oss__col">
+            <div class="oss__colhead">
+              <h3>Merged</h3>
+              <span class="oss__count" id="oss-merged-count">—</span>
+            </div>
+            <ul class="oss__list" id="oss-merged" aria-label="Merged pull requests">
+              <li class="oss__skeleton" aria-hidden="true"></li>
+              <li class="oss__skeleton" aria-hidden="true"></li>
+              <li class="oss__skeleton" aria-hidden="true"></li>
+            </ul>
+          </div>
+          <div class="oss__col">
+            <div class="oss__colhead">
+              <h3>Open PRs</h3>
+              <span class="oss__count" id="oss-open-count">—</span>
+            </div>
+            <ul class="oss__list" id="oss-open" aria-label="Open pull requests">
+              <li class="oss__skeleton" aria-hidden="true"></li>
+              <li class="oss__skeleton" aria-hidden="true"></li>
+              <li class="oss__skeleton" aria-hidden="true"></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="oss__more">
+          <div class="oss__morehead">
+            <h3>Also on GitHub</h3>
+            <p>Public repos beyond the featured work above. New ones appear here when you push them.</p>
+          </div>
+          <div class="oss__repos" id="oss-repos" aria-label="Other GitHub repositories">
+            <div class="oss__skeleton oss__skeleton--repo" aria-hidden="true"></div>
+            <div class="oss__skeleton oss__skeleton--repo" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <p class="oss__error" id="oss-error" hidden>
+          Couldn't load live GitHub data right now.
+          <a href="https://github.com/ATKasem" target="_blank" rel="noopener">View profile on GitHub →</a>
+        </p>
+      </div>
+    </section>
+
     <!-- About -->
     <section class="section section--about" id="about">
       <div class="about">
         <div class="about__text reveal">
-          <p class="section__kicker">02 · About</p>
+          <p class="section__kicker">03 · About</p>
           <h2 class="section__title">An aspiring engineer who loves the build.</h2>
           <p>
             I describe myself pretty simply. <em>I'm an aspiring software engineer who just wants to build fun projects.</em>
@@ -268,7 +331,7 @@
     <!-- Stack -->
     <section class="section" id="stack">
       <div class="section__head reveal">
-        <p class="section__kicker">03 · Toolbox</p>
+        <p class="section__kicker">04 · Toolbox</p>
         <h2 class="section__title">Technologies I reach for</h2>
       </div>
       <div class="stack reveal">
@@ -294,7 +357,7 @@
     <!-- Contact -->
     <section class="section section--contact" id="contact">
       <div class="contact reveal">
-        <p class="section__kicker">04 · Contact</p>
+        <p class="section__kicker">05 · Contact</p>
         <h2 class="contact__title">Let's build something<br /><span class="grad-text">worth shipping.</span></h2>
         <p class="contact__sub">Have a role, a project, or just want to talk shop? My inbox is open.</p>
         <div class="contact__actions">
