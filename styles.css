@@ -179,15 +179,20 @@ em { color: #d7d2ff; font-style: normal; font-weight: 500; }
   font-weight: 700;
   font-size: 1.2rem;
   letter-spacing: -.02em;
-  color: var(--brand, #cfd3e6);
-  transition: color .2s, opacity .2s, transform .2s;
-  opacity: .92;
+  transition: filter .2s, transform .2s;
 }
-.marquee__word:hover {
-  opacity: 1;
-  transform: translateY(-1px);
-  color: #fff;
-}
+.marquee__word:hover { transform: translateY(-1px); filter: brightness(1.15); }
+.marquee__word--react { color: #61DAFB !important; }
+.marquee__word--ts { color: #3178C6 !important; }
+.marquee__word--go { color: #00ADD8 !important; }
+.marquee__word--node { color: #5FA04E !important; }
+.marquee__word--express { color: #D4D4D8 !important; }
+.marquee__word--chatgpt { color: #10A37F !important; }
+.marquee__word--flow { color: #FF0072 !important; }
+.marquee__word--vite { color: #A3A8FF !important; }
+.marquee__word--docker { color: #2496ED !important; }
+.marquee__word--rest { color: #85EA2D !important; }
+.marquee__word--zustand { color: #E4C590 !important; }
 
 .marquee--tech:hover .marquee__track,
 .marquee--orgs:hover .marquee__track { animation-play-state: paused; }
