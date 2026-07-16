@@ -175,13 +175,16 @@ em { color: #d7d2ff; font-style: normal; font-weight: 500; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 
 .marquee--orgs {
+  display: block;
   margin: 0 0 40px;
   padding: 18px 0 20px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: linear-gradient(180deg, rgba(34,211,238,.05), rgba(255,255,255,.015));
+  overflow: hidden;
   mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
+.marquee--orgs[hidden] { display: none !important; }
 .marquee__eyebrow {
   margin: 0 0 12px;
   text-align: center;
@@ -192,8 +195,11 @@ em { color: #d7d2ff; font-style: normal; font-weight: 500; }
   color: var(--accent-2);
 }
 .marquee--orgs .marquee__track {
+  display: flex;
+  align-items: center;
   gap: 18px;
-  animation-duration: 40s;
+  width: max-content;
+  animation: marquee 40s linear infinite;
 }
 .marquee__dot {
   font-family: "Sora", sans-serif;
@@ -217,6 +223,12 @@ em { color: #d7d2ff; font-style: normal; font-weight: 500; }
   color: #e9ecf5;
   transition: border-color .2s, background .2s, color .2s;
 }
+.marquee__org--pending {
+  border-style: dashed;
+  color: var(--muted);
+  font-size: .95rem;
+  font-weight: 500;
+}
 .marquee__org img {
   width: 22px;
   height: 22px;
@@ -230,12 +242,14 @@ em { color: #d7d2ff; font-style: normal; font-weight: 500; }
   color: #fff;
 }
 @media (prefers-reduced-motion: reduce) {
-  .marquee__track { animation: none; }
+  .marquee__track,
+  .marquee--orgs .marquee__track { animation: none; }
 }
 
 /* ---------- Sections ---------- */
 .section { max-width: var(--max); margin: 0 auto; padding: clamp(80px, 12vw, 140px) clamp(18px, 5vw, 48px); }
-.section__head { max-width: 640px; margin-bottom: 56px; }
+.section__head { max-width: 640px; margin-bottom: 40px; }
+#opensource .section__head { margin-bottom: 28px; }
 .section__kicker { font-family: "JetBrains Mono", monospace; font-size: 13px; letter-spacing: .1em; color: var(--accent-2); text-transform: uppercase; margin: 0 0 16px; }
 .section__title { font-size: clamp(2rem, 4.5vw, 3.1rem); font-weight: 700; }
 .section__sub { color: var(--muted); font-size: 1.08rem; margin-top: 18px; }

@@ -274,27 +274,34 @@
     const track = document.getElementById('org-marquee-track');
     if (!wrap || !track) return;
 
+    wrap.removeAttribute('hidden');
+    wrap.classList.toggle('is-empty', !orgs.length);
+
     if (!orgs.length) {
-      wrap.hidden = true;
-      track.innerHTML = '';
+      track.innerHTML = '<span class="marquee__org marquee__org--pending">No upstream orgs yet</span>';
       return;
     }
 
     const unit = orgs
       .map((o) => {
         const avatar = `https://github.com/${encodeURIComponent(o.org)}.png?size=64`;
-        return `
-          <a class="marquee__org" href="https://github.com/${escapeHtml(o.org)}" target="_blank" rel="noopener">
-            <img src="${escapeHtml(avatar)}" alt="" width="22" height="22" loading="lazy" decoding="async" />
-            <span>${escapeHtml(o.label)}</span>
-          </a>`;
+        return (
+          '<a class="marquee__org" href="https://github.com/' +
+          escapeHtml(o.org) +
+          '" target="_blank" rel="noopener">' +
+          '<img src="' +
+          escapeHtml(avatar) +
+          '" alt="" width="22" height="22" loading="lazy" decoding="async" />' +
+          '<span>' +
+          escapeHtml(o.label) +
+          '</span></a>'
+        );
       })
-      .join('<span class="marquee__dot" aria-hidden="true">•</span>')
-      + '<span class="marquee__dot" aria-hidden="true">•</span>';
+      .join('<span class="marquee__dot" aria-hidden="true">•</span>') +
+      '<span class="marquee__dot" aria-hidden="true">•</span>';
 
     /* Duplicate so translateX(-50%) loops seamlessly */
     track.innerHTML = unit + unit;
-    wrap.hidden = false;
   };
 
   const renderPrList = (el, items, kind) => {

@@ -242,12 +242,15 @@
         </p>
       </div>
 
-      <div class="oss reveal" id="oss-root" aria-busy="true">
-        <div class="marquee marquee--orgs" id="org-marquee" hidden>
-          <p class="marquee__eyebrow">Contributed to</p>
-          <div class="marquee__track" id="org-marquee-track" aria-label="Companies and organizations contributed to"></div>
+      <!-- Companies sit between the section intro and the PR columns -->
+      <div class="marquee marquee--orgs" id="org-marquee">
+        <p class="marquee__eyebrow">Contributed to</p>
+        <div class="marquee__track" id="org-marquee-track" aria-label="Companies and organizations contributed to">
+          <span class="marquee__org marquee__org--pending">Loading companies…</span>
         </div>
+      </div>
 
+      <div class="oss reveal" id="oss-root" aria-busy="true">
         <div class="oss__cols">
           <div class="oss__col">
             <div class="oss__colhead">
