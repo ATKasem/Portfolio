@@ -182,7 +182,7 @@ em { color: #d7d2ff; font-style: normal; font-weight: 500; }
   font-size: 12px;
   letter-spacing: .1em;
   text-transform: uppercase;
-  color: var(--muted-2);
+  color: #fff;
 }
 
 /* Company strip — full width; slower than the frameworks marquee */
