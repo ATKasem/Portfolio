@@ -20,7 +20,7 @@ blog/
 
 The **Open Source** block on the homepage shows:
 
-- A rotating **companies** marquee under the frameworks strip (orgs from upstream PRs)
+- **Contributed to** — rotating companies/orgs marquee inside Open Source
 - **Merged** / **Open PRs** — sectioned lists of upstream pull requests
 - **Also on GitHub** — public non-fork repos that are not already in the curated Work section
 

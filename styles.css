@@ -175,9 +175,12 @@ em { color: #d7d2ff; font-style: normal; font-weight: 500; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 
 .marquee--orgs {
-  padding: 16px 0 22px;
-  border-top: none;
-  background: linear-gradient(180deg, rgba(34,211,238,.04), rgba(255,255,255,.01));
+  margin: 0 0 40px;
+  padding: 18px 0 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(34,211,238,.05), rgba(255,255,255,.015));
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
 .marquee__eyebrow {
   margin: 0 0 12px;
