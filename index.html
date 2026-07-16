@@ -83,7 +83,7 @@
       </a>
     </section>
 
-    <!-- Marquee -->
+    <!-- Marquee — frameworks -->
     <div class="marquee" aria-hidden="true">
       <div class="marquee__track">
         <span>React</span><span>•</span><span>TypeScript</span><span>•</span><span>Go</span><span>•</span>
@@ -95,6 +95,12 @@
         <span>React Flow</span><span>•</span><span>Vite</span><span>•</span><span>Docker</span><span>•</span>
         <span>REST APIs</span><span>•</span><span>Zustand</span><span>•</span>
       </div>
+    </div>
+
+    <!-- Marquee — companies contributed to (filled from GitHub snapshot) -->
+    <div class="marquee marquee--orgs" id="org-marquee" hidden>
+      <p class="marquee__eyebrow">Open source contributions</p>
+      <div class="marquee__track" id="org-marquee-track" aria-label="Companies and organizations contributed to"></div>
     </div>
 
     <!-- Work -->
@@ -243,19 +249,6 @@
       </div>
 
       <div class="oss reveal" id="oss-root" aria-busy="true">
-        <div class="oss__orgs-wrap">
-          <div class="oss__orgs-head">
-            <h3>Contributed to</h3>
-            <p>Organizations and companies with upstream PRs from me.</p>
-          </div>
-          <ul class="oss__orgs" id="oss-orgs" aria-label="Organizations contributed to">
-            <li class="oss__skeleton oss__skeleton--org" aria-hidden="true"></li>
-            <li class="oss__skeleton oss__skeleton--org" aria-hidden="true"></li>
-            <li class="oss__skeleton oss__skeleton--org" aria-hidden="true"></li>
-            <li class="oss__skeleton oss__skeleton--org" aria-hidden="true"></li>
-          </ul>
-        </div>
-
         <div class="oss__cols">
           <div class="oss__col">
             <div class="oss__colhead">

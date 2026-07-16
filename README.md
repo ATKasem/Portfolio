@@ -20,9 +20,8 @@ blog/
 
 The **Open Source** block on the homepage shows:
 
-- **Contributed to** — organizations/companies from upstream PRs
-- **Merged** — pull requests I authored that were merged into other people's repos
-- **Open PRs** — my currently open pull requests upstream
+- A rotating **companies** marquee under the frameworks strip (orgs from upstream PRs)
+- **Merged** / **Open PRs** — sectioned lists of upstream pull requests
 - **Also on GitHub** — public non-fork repos that are not already in the curated Work section
 
 On each deploy, GitHub Actions runs `scripts/sync-github.mjs` and writes `data/github.json` (using the Actions token so visitors are not hit by the unauthenticated Search API limit). The page loads that snapshot first. A short `sessionStorage` cache avoids refetch noise.

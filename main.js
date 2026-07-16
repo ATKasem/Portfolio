@@ -269,29 +269,32 @@
       }));
   };
 
-  const renderOrgs = (el, orgs) => {
-    if (!el) return;
+  const renderOrgMarquee = (orgs) => {
+    const wrap = document.getElementById('org-marquee');
+    const track = document.getElementById('org-marquee-track');
+    if (!wrap || !track) return;
+
     if (!orgs.length) {
-      el.innerHTML = '<li class="oss__empty">No upstream orgs yet.</li>';
+      wrap.hidden = true;
+      track.innerHTML = '';
       return;
     }
-    el.innerHTML = orgs
+
+    const unit = orgs
       .map((o) => {
-        const count = o.merged + o.open;
-        const countLabel = count === 1 ? '1 PR' : count + ' PRs';
-        const avatar = `https://github.com/${encodeURIComponent(o.org)}.png?size=80`;
+        const avatar = `https://github.com/${encodeURIComponent(o.org)}.png?size=64`;
         return `
-          <li>
-            <a class="oss__org" href="https://github.com/${escapeHtml(o.org)}" target="_blank" rel="noopener">
-              <img class="oss__org-avatar" src="${escapeHtml(avatar)}" alt="" width="36" height="36" loading="lazy" decoding="async" />
-              <span class="oss__org-text">
-                <span class="oss__org-name">${escapeHtml(o.label)}</span>
-                <span class="oss__org-count">${escapeHtml(countLabel)}${o.merged ? ` · ${o.merged} merged` : ''}</span>
-              </span>
-            </a>
-          </li>`;
+          <a class="marquee__org" href="https://github.com/${escapeHtml(o.org)}" target="_blank" rel="noopener">
+            <img src="${escapeHtml(avatar)}" alt="" width="22" height="22" loading="lazy" decoding="async" />
+            <span>${escapeHtml(o.label)}</span>
+          </a>`;
       })
-      .join('');
+      .join('<span class="marquee__dot" aria-hidden="true">•</span>')
+      + '<span class="marquee__dot" aria-hidden="true">•</span>';
+
+    /* Duplicate so translateX(-50%) loops seamlessly */
+    track.innerHTML = unit + unit;
+    wrap.hidden = false;
   };
 
   const renderPrList = (el, items, kind) => {
@@ -364,7 +367,7 @@
   };
 
   const clearOssLists = () => {
-    ['oss-orgs', 'oss-merged', 'oss-open', 'oss-repos'].forEach((id) => {
+    ['oss-merged', 'oss-open', 'oss-repos'].forEach((id) => {
       const el = document.getElementById(id);
       if (el) el.innerHTML = '';
     });
@@ -376,7 +379,6 @@
     }
 
     const root = document.getElementById('oss-root');
-    const orgsEl = document.getElementById('oss-orgs');
     const mergedEl = document.getElementById('oss-merged');
     const openEl = document.getElementById('oss-open');
     const reposEl = document.getElementById('oss-repos');
@@ -389,8 +391,7 @@
 
     const mergedItems = payload.merged.items || [];
     const openItems = payload.open.items || [];
-    const orgs = collectOrgs(mergedItems, openItems);
-    renderOrgs(orgsEl, orgs);
+    renderOrgMarquee(collectOrgs(mergedItems, openItems));
     renderPrList(mergedEl, mergedItems, 'merged');
     renderPrList(openEl, openItems, 'open');
     renderRepos(reposEl, payload.repos || []);
