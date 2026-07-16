@@ -18,13 +18,16 @@ blog/
 
 ## Live GitHub section
 
-The **Open Source** block on the homepage loads from the public GitHub API for [@ATKasem](https://github.com/ATKasem):
+The **Open Source** block on the homepage shows:
 
+- **Contributed to** — organizations/companies from upstream PRs
 - **Merged** — pull requests I authored that were merged into other people's repos
 - **Open PRs** — my currently open pull requests upstream
 - **Also on GitHub** — public non-fork repos that are not already in the curated Work section
 
-Results are cached in `sessionStorage` for about 30 minutes per visitor. New merges, open PRs, and repos show up automatically — you do not need to redeploy the site for GitHub activity to appear.
+On each deploy, GitHub Actions runs `scripts/sync-github.mjs` and writes `data/github.json` (using the Actions token so visitors are not hit by the unauthenticated Search API limit). The page loads that snapshot first. A short `sessionStorage` cache avoids refetch noise.
+
+To refresh activity, push to `main` (or re-run the Pages workflow). Locally: `GITHUB_TOKEN=$(gh auth token) node scripts/sync-github.mjs`.
 
 Featured Work cards stay hand-written. To hide a repo from **Also on GitHub**, add its name to `HIDDEN_REPOS` in `main.js`.
 

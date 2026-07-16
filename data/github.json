@@ -1,0 +1,163 @@
+{
+  "fetchedAt": 1784228934647,
+  "merged": {
+    "total": 10,
+    "items": [
+      {
+        "title": "Reject non-absolute file URLs in NewProjectEvaluator",
+        "html_url": "https://github.com/apple/pkl-go/pull/258",
+        "repo": "apple/pkl-go",
+        "date": "2026-07-16T13:04:42Z"
+      },
+      {
+        "title": "fix(misc): suppress outdated disclaimer for unsupported AI agents with AGENTS.md",
+        "html_url": "https://github.com/nrwl/nx/pull/36324",
+        "repo": "nrwl/nx",
+        "date": "2026-07-16T11:44:09Z"
+      },
+      {
+        "title": "🐛 fix: close the listener on Listen error paths to avoid FD leaks",
+        "html_url": "https://github.com/gofiber/fiber/pull/4532",
+        "repo": "gofiber/fiber",
+        "date": "2026-07-14T13:50:11Z"
+      },
+      {
+        "title": "🐛 fix: OnPostShutdown hook receives the real error and fires once",
+        "html_url": "https://github.com/gofiber/fiber/pull/4531",
+        "repo": "gofiber/fiber",
+        "date": "2026-07-14T11:16:14Z"
+      },
+      {
+        "title": "fix(core-components): don't leak literal 0 from Filters on empty array",
+        "html_url": "https://github.com/backstage/backstage/pull/34842",
+        "repo": "backstage/backstage",
+        "date": "2026-07-13T18:32:30Z"
+      },
+      {
+        "title": "Fix `wrangler dev` corrupting external hostnames in proxied headers",
+        "html_url": "https://github.com/cloudflare/workers-sdk/pull/14658",
+        "repo": "cloudflare/workers-sdk",
+        "date": "2026-07-13T14:53:23Z"
+      },
+      {
+        "title": "🐛 fix: `NewErrorf` keeps all args when first isn't a format string",
+        "html_url": "https://github.com/gofiber/fiber/pull/4530",
+        "repo": "gofiber/fiber",
+        "date": "2026-07-13T06:49:04Z"
+      },
+      {
+        "title": "🐛 fix: accept full float64 range in `float` route constraint",
+        "html_url": "https://github.com/gofiber/fiber/pull/4528",
+        "repo": "gofiber/fiber",
+        "date": "2026-07-13T06:48:29Z"
+      },
+      {
+        "title": "🐛 fix: URL-encode query values in `Redirect.Route`",
+        "html_url": "https://github.com/gofiber/fiber/pull/4529",
+        "repo": "gofiber/fiber",
+        "date": "2026-07-13T06:48:00Z"
+      },
+      {
+        "title": "fix(blog, docs): apply trailingSlash to blog structured data URLs",
+        "html_url": "https://github.com/facebook/docusaurus/pull/12262",
+        "repo": "facebook/docusaurus",
+        "date": "2026-07-10T12:24:56Z"
+      }
+    ]
+  },
+  "open": {
+    "total": 25,
+    "items": [
+      {
+        "title": "fix(bedrockagentcore): `Memory` does not set defaultChild, breaking applyRemovalPolicy",
+        "html_url": "https://github.com/aws/aws-cdk/pull/38282",
+        "repo": "aws/aws-cdk",
+        "date": "2026-07-16T18:58:11Z"
+      },
+      {
+        "title": "fix(agents): claude-cli sessions wiped by preflight byte-guard compaction",
+        "html_url": "https://github.com/openclaw/openclaw/pull/109096",
+        "repo": "openclaw/openclaw",
+        "date": "2026-07-16T17:39:11Z"
+      },
+      {
+        "title": "fix(auth): use 127.0.0.1 for OAuth loopback redirect instead of localhost",
+        "html_url": "https://github.com/firebase/firebase-tools/pull/10796",
+        "repo": "firebase/firebase-tools",
+        "date": "2026-07-16T16:37:53Z"
+      },
+      {
+        "title": "fix(utils): normalize MSYS Git paths + add MSYS CI repro",
+        "html_url": "https://github.com/facebook/docusaurus/pull/12288",
+        "repo": "facebook/docusaurus",
+        "date": "2026-07-16T16:21:40Z"
+      },
+      {
+        "title": "fix(client): wire the operation AbortSignal in the WebSocket link",
+        "html_url": "https://github.com/trpc/trpc/pull/7434",
+        "repo": "trpc/trpc",
+        "date": "2026-07-16T16:17:46Z"
+      },
+      {
+        "title": "Fix transfermanager GetObject ContentRange to use HTTP format",
+        "html_url": "https://github.com/aws/aws-sdk-go-v2/pull/3473",
+        "repo": "aws/aws-sdk-go-v2",
+        "date": "2026-07-16T16:11:34Z"
+      },
+      {
+        "title": "[rush] Fix \"rush-pnpm patch-commit\" writing absolute paths into pnpm-config.json",
+        "html_url": "https://github.com/microsoft/rushstack/pull/5875",
+        "repo": "microsoft/rushstack",
+        "date": "2026-07-16T13:25:41Z"
+      },
+      {
+        "title": "fix(node): allow non-string person and group properties in flag options",
+        "html_url": "https://github.com/PostHog/posthog-js/pull/4155",
+        "repo": "PostHog/posthog-js",
+        "date": "2026-07-15T14:47:31Z"
+      },
+      {
+        "title": "Support the modern attr() type() syntax",
+        "html_url": "https://github.com/microsoft/vscode-css-languageservice/pull/495",
+        "repo": "microsoft/vscode-css-languageservice",
+        "date": "2026-07-14T14:33:17Z"
+      },
+      {
+        "title": "propagators/b3: report `b3` header from Fields() for default encoding",
+        "html_url": "https://github.com/open-telemetry/opentelemetry-go-contrib/pull/9273",
+        "repo": "open-telemetry/opentelemetry-go-contrib",
+        "date": "2026-07-14T12:47:16Z"
+      },
+      {
+        "title": "fix(hosting): don't fail deploy when the version is already the active release",
+        "html_url": "https://github.com/firebase/firebase-tools/pull/10791",
+        "repo": "firebase/firebase-tools",
+        "date": "2026-07-14T12:45:30Z"
+      },
+      {
+        "title": "fix(js/ai): persist serializable message data from prompt agents",
+        "html_url": "https://github.com/genkit-ai/genkit/pull/5733",
+        "repo": "genkit-ai/genkit",
+        "date": "2026-07-14T05:58:11Z"
+      }
+    ]
+  },
+  "repos": [
+    {
+      "name": "Claude-GBT-project",
+      "description": null,
+      "language": "TypeScript",
+      "html_url": "https://github.com/ATKasem/Claude-GBT-project",
+      "stars": 0,
+      "pushed_at": "2026-07-04T06:47:55Z"
+    },
+    {
+      "name": "Vanilla-HTML-CSS-JS",
+      "description": "My journey ",
+      "language": "JavaScript",
+      "html_url": "https://github.com/ATKasem/Vanilla-HTML-CSS-JS",
+      "stars": 0,
+      "pushed_at": "2026-04-10T04:26:24Z"
+    }
+  ]
+}

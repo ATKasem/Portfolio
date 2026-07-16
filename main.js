@@ -82,11 +82,13 @@
      Live GitHub — merged PRs, open PRs, other repos
      ========================================================= */
   const GITHUB_USER = 'ATKasem';
-  const CACHE_KEY = 'atkasem-github-oss-v2';
+  const CACHE_KEY = 'atkasem-github-oss-v3';
   const CACHE_TTL_MS = 30 * 60 * 1000;
   const PR_LIMIT = 12;
   const REPO_LIMIT = 8;
   const ORG_LIMIT = 14;
+  /* Prefer deploy-time snapshot — unauthenticated Search API is only 10 req/min */
+  const SNAPSHOT_URL = new URL('data/github.json', window.location.href).href;
 
   /* Curated Work + learning noise — excluded from "Also on GitHub" */
   const HIDDEN_REPOS = new Set([
@@ -358,7 +360,18 @@
     if (root) root.setAttribute('aria-busy', 'false');
   };
 
+  const clearOssLists = () => {
+    ['oss-orgs', 'oss-merged', 'oss-open', 'oss-repos'].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = '';
+    });
+  };
+
   const paint = (payload) => {
+    if (!payload || !payload.merged || !payload.open) {
+      throw new Error('invalid_payload');
+    }
+
     const root = document.getElementById('oss-root');
     const orgsEl = document.getElementById('oss-orgs');
     const mergedEl = document.getElementById('oss-merged');
@@ -371,14 +384,16 @@
 
     if (errEl) errEl.hidden = true;
 
-    const orgs = collectOrgs(payload.merged.items, payload.open.items);
+    const mergedItems = payload.merged.items || [];
+    const openItems = payload.open.items || [];
+    const orgs = collectOrgs(mergedItems, openItems);
     renderOrgs(orgsEl, orgs);
-    renderPrList(mergedEl, payload.merged.items, 'merged');
-    renderPrList(openEl, payload.open.items, 'open');
-    renderRepos(reposEl, payload.repos);
+    renderPrList(mergedEl, mergedItems, 'merged');
+    renderPrList(openEl, openItems, 'open');
+    renderRepos(reposEl, payload.repos || []);
 
-    if (mergedCount) mergedCount.textContent = String(payload.merged.total);
-    if (openCount) openCount.textContent = String(payload.open.total);
+    if (mergedCount) mergedCount.textContent = String(payload.merged.total ?? mergedItems.length);
+    if (openCount) openCount.textContent = String(payload.open.total ?? openItems.length);
 
     if (updated) {
       updated.hidden = false;
@@ -388,45 +403,54 @@
     if (root) root.setAttribute('aria-busy', 'false');
   };
 
+  const fetchSnapshot = async () => {
+    const res = await fetch(SNAPSHOT_URL, { cache: 'no-cache' });
+    if (!res.ok) {
+      const err = new Error('snapshot_missing');
+      err.code = 'snapshot_missing';
+      throw err;
+    }
+    return res.json();
+  };
+
+  const fetchLive = async () => {
+    /* Sequential search calls — parallel unauth search often hits the 10/min cap */
+    const merged = await searchPrs('is:merged');
+    const open = await searchPrs('is:open');
+    const repos = await fetchOtherRepos();
+    return { fetchedAt: Date.now(), merged, open, repos };
+  };
+
   const loadGithub = async () => {
     const section = document.getElementById('opensource');
     if (!section) return;
 
     const cached = readCache();
     if (cached) {
-      paint(cached);
-      return;
+      try {
+        paint(cached);
+        return;
+      } catch {
+        try { sessionStorage.removeItem(CACHE_KEY); } catch { /* ignore */ }
+      }
     }
 
     try {
-      const [merged, open, repos] = await Promise.all([
-        searchPrs('is:merged'),
-        searchPrs('is:open'),
-        fetchOtherRepos(),
-      ]);
-      const payload = {
-        fetchedAt: Date.now(),
-        merged,
-        open,
-        repos,
-      };
+      let payload;
+      try {
+        payload = await fetchSnapshot();
+      } catch {
+        payload = await fetchLive();
+      }
       writeCache(payload);
       paint(payload);
     } catch (err) {
       const msg =
         err && err.code === 'rate_limited'
-          ? "GitHub rate limit hit for this network."
-          : "Couldn't load live GitHub data right now.";
+          ? "GitHub rate limit hit for this network. Try again in a minute."
+          : "Couldn't load open source data right now.";
       showError(document.getElementById('oss-root'), msg);
-
-      const orgsEl = document.getElementById('oss-orgs');
-      const mergedEl = document.getElementById('oss-merged');
-      const openEl = document.getElementById('oss-open');
-      const reposEl = document.getElementById('oss-repos');
-      if (orgsEl) orgsEl.innerHTML = '';
-      if (mergedEl) mergedEl.innerHTML = '';
-      if (openEl) openEl.innerHTML = '';
-      if (reposEl) reposEl.innerHTML = '';
+      clearOssLists();
     }
   };
 
