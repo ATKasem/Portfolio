@@ -174,19 +174,12 @@ em { color: #d7d2ff; font-style: normal; font-weight: 500; }
 .marquee__track > span:nth-child(3n+1) { color: #cfd3e6; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 
-/* Full-bleed company strip inside the Open Source section */
+/* Company strip — full viewport width (sibling of .section, not inside max-width) */
 .marquee--orgs {
-  width: 100vw;
-  max-width: 100vw;
-  position: relative;
-  margin: 8px calc(50% - 50vw) 36px;
+  width: 100%;
+  margin: 0;
   padding: 20px 0;
   border-radius: 0;
-  border: none;
-  border-block: 1px solid var(--line);
-  background: rgba(255,255,255,.015);
-  overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
 .marquee--orgs .marquee__track {
   animation-duration: 56s; /* a bit slower than the frameworks strip */
@@ -198,7 +191,9 @@ em { color: #d7d2ff; font-style: normal; font-weight: 500; }
 /* ---------- Sections ---------- */
 .section { max-width: var(--max); margin: 0 auto; padding: clamp(80px, 12vw, 140px) clamp(18px, 5vw, 48px); }
 .section__head { max-width: 640px; margin-bottom: 40px; }
-#opensource .section__head { margin-bottom: 28px; }
+.section--oss-intro { padding-bottom: 28px; }
+.section--oss-intro .section__head { margin-bottom: 0; }
+.section--oss-body { padding-top: 36px; }
 .section__kicker { font-family: "JetBrains Mono", monospace; font-size: 13px; letter-spacing: .1em; color: var(--accent-2); text-transform: uppercase; margin: 0 0 16px; }
 .section__title { font-size: clamp(2rem, 4.5vw, 3.1rem); font-weight: 700; }
 .section__sub { color: var(--muted); font-size: 1.08rem; margin-top: 18px; }
