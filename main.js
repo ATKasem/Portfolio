@@ -82,10 +82,11 @@
      Live GitHub — merged PRs, open PRs, other repos
      ========================================================= */
   const GITHUB_USER = 'ATKasem';
-  const CACHE_KEY = 'atkasem-github-oss-v1';
+  const CACHE_KEY = 'atkasem-github-oss-v2';
   const CACHE_TTL_MS = 30 * 60 * 1000;
   const PR_LIMIT = 12;
   const REPO_LIMIT = 8;
+  const ORG_LIMIT = 14;
 
   /* Curated Work + learning noise — excluded from "Also on GitHub" */
   const HIDDEN_REPOS = new Set([
@@ -99,6 +100,30 @@
     'Aarons-portfolio',
     'Aarons-Portfolio',
   ]);
+
+  /* Display names for GitHub orgs that are well-known companies / projects */
+  const ORG_LABELS = {
+    apple: 'Apple',
+    aws: 'AWS',
+    backstage: 'Backstage',
+    cloudflare: 'Cloudflare',
+    facebook: 'Meta',
+    firebase: 'Firebase',
+    'genkit-ai': 'Genkit',
+    gofiber: 'Fiber',
+    microsoft: 'Microsoft',
+    nrwl: 'Nx',
+    'open-telemetry': 'OpenTelemetry',
+    PostHog: 'PostHog',
+    trpc: 'tRPC',
+    vercel: 'Vercel',
+    google: 'Google',
+    hashicorp: 'HashiCorp',
+    docker: 'Docker',
+    kubernetes: 'Kubernetes',
+    golang: 'Go',
+    openclaw: 'OpenClaw',
+  };
 
   const escapeHtml = (value) =>
     String(value ?? '')
@@ -130,6 +155,35 @@
     }
     const m = (item.html_url || '').match(/github\.com\/([^/]+\/[^/]+)/);
     return m ? m[1] : 'unknown';
+  };
+
+  const splitRepo = (full) => {
+    const [org = 'unknown', name = full] = String(full).split('/');
+    return { org, name };
+  };
+
+  const orgLabel = (org) => {
+    if (ORG_LABELS[org]) return ORG_LABELS[org];
+    const hit = Object.keys(ORG_LABELS).find((k) => k.toLowerCase() === String(org).toLowerCase());
+    return hit ? ORG_LABELS[hit] : org;
+  };
+
+  const collectOrgs = (mergedItems, openItems) => {
+    const map = new Map();
+    const bump = (repo, weight) => {
+      const { org } = splitRepo(repo);
+      if (!org || org === 'unknown' || org === GITHUB_USER) return;
+      const prev = map.get(org) || { org, label: orgLabel(org), merged: 0, open: 0, score: 0 };
+      if (weight === 'merged') prev.merged += 1;
+      else prev.open += 1;
+      prev.score = prev.merged * 3 + prev.open;
+      map.set(org, prev);
+    };
+    (mergedItems || []).forEach((pr) => bump(pr.repo, 'merged'));
+    (openItems || []).forEach((pr) => bump(pr.repo, 'open'));
+    return Array.from(map.values())
+      .sort((a, b) => b.score - a.score || a.label.localeCompare(b.label))
+      .slice(0, ORG_LIMIT);
   };
 
   const readCache = () => {
@@ -210,6 +264,31 @@
       }));
   };
 
+  const renderOrgs = (el, orgs) => {
+    if (!el) return;
+    if (!orgs.length) {
+      el.innerHTML = '<li class="oss__empty">No upstream orgs yet.</li>';
+      return;
+    }
+    el.innerHTML = orgs
+      .map((o) => {
+        const count = o.merged + o.open;
+        const countLabel = count === 1 ? '1 PR' : count + ' PRs';
+        const avatar = `https://github.com/${encodeURIComponent(o.org)}.png?size=80`;
+        return `
+          <li>
+            <a class="oss__org" href="https://github.com/${escapeHtml(o.org)}" target="_blank" rel="noopener">
+              <img class="oss__org-avatar" src="${escapeHtml(avatar)}" alt="" width="36" height="36" loading="lazy" decoding="async" />
+              <span class="oss__org-text">
+                <span class="oss__org-name">${escapeHtml(o.label)}</span>
+                <span class="oss__org-count">${escapeHtml(countLabel)}${o.merged ? ` · ${o.merged} merged` : ''}</span>
+              </span>
+            </a>
+          </li>`;
+      })
+      .join('');
+  };
+
   const renderPrList = (el, items, kind) => {
     if (!el) return;
     if (!items.length) {
@@ -218,6 +297,7 @@
     }
     el.innerHTML = items
       .map((pr) => {
+        const { org, name } = splitRepo(pr.repo);
         const badge =
           kind === 'merged'
             ? '<span class="oss__pill oss__pill--merged">Merged</span>'
@@ -225,7 +305,11 @@
         return `
           <li class="oss__item">
             <a class="oss__link" href="${escapeHtml(pr.html_url)}" target="_blank" rel="noopener">
-              <span class="oss__repo">${escapeHtml(pr.repo)}</span>
+              <span class="oss__repo">
+                <span class="oss__repo-org">${escapeHtml(orgLabel(org))}</span>
+                <span class="oss__repo-sep" aria-hidden="true">/</span>
+                <span class="oss__repo-slug">${escapeHtml(name)}</span>
+              </span>
               <span class="oss__title">${escapeHtml(pr.title)}</span>
               <span class="oss__meta">
                 ${badge}
@@ -276,6 +360,7 @@
 
   const paint = (payload) => {
     const root = document.getElementById('oss-root');
+    const orgsEl = document.getElementById('oss-orgs');
     const mergedEl = document.getElementById('oss-merged');
     const openEl = document.getElementById('oss-open');
     const reposEl = document.getElementById('oss-repos');
@@ -286,6 +371,8 @@
 
     if (errEl) errEl.hidden = true;
 
+    const orgs = collectOrgs(payload.merged.items, payload.open.items);
+    renderOrgs(orgsEl, orgs);
     renderPrList(mergedEl, payload.merged.items, 'merged');
     renderPrList(openEl, payload.open.items, 'open');
     renderRepos(reposEl, payload.repos);
@@ -332,9 +419,11 @@
           : "Couldn't load live GitHub data right now.";
       showError(document.getElementById('oss-root'), msg);
 
+      const orgsEl = document.getElementById('oss-orgs');
       const mergedEl = document.getElementById('oss-merged');
       const openEl = document.getElementById('oss-open');
       const reposEl = document.getElementById('oss-repos');
+      if (orgsEl) orgsEl.innerHTML = '';
       if (mergedEl) mergedEl.innerHTML = '';
       if (openEl) openEl.innerHTML = '';
       if (reposEl) reposEl.innerHTML = '';
