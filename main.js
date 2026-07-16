@@ -82,10 +82,11 @@
      Live GitHub — merged PRs, open PRs, other repos
      ========================================================= */
   const GITHUB_USER = 'ATKasem';
-  const CACHE_KEY = 'atkasem-github-oss-v3';
+  const CACHE_KEY = 'atkasem-github-oss-v4';
   const CACHE_TTL_MS = 30 * 60 * 1000;
   const PR_LIMIT = 12;
-  const REPO_LIMIT = 8;
+  const PR_DISPLAY = 4;
+  const REPO_LIMIT = 6;
   const ORG_LIMIT = 14;
   /* Prefer deploy-time snapshot — unauthenticated Search API is only 10 req/min */
   const pageDir = window.location.pathname
@@ -270,37 +271,18 @@
   };
 
   const renderOrgMarquee = (orgs) => {
-    const wrap = document.getElementById('org-marquee');
     const track = document.getElementById('org-marquee-track');
-    if (!wrap || !track) return;
+    if (!track) return;
 
-    wrap.removeAttribute('hidden');
-    wrap.classList.toggle('is-empty', !orgs.length);
+    const names = (orgs.length ? orgs : [{ label: 'Open source' }]).map((o) => o.label);
+    const unit = names
+      .flatMap((name) => [
+        '<span>' + escapeHtml(name) + '</span>',
+        '<span aria-hidden="true">•</span>',
+      ])
+      .join('');
 
-    if (!orgs.length) {
-      track.innerHTML = '<span class="marquee__org marquee__org--pending">No upstream orgs yet</span>';
-      return;
-    }
-
-    const unit = orgs
-      .map((o) => {
-        const avatar = `https://github.com/${encodeURIComponent(o.org)}.png?size=64`;
-        return (
-          '<a class="marquee__org" href="https://github.com/' +
-          escapeHtml(o.org) +
-          '" target="_blank" rel="noopener">' +
-          '<img src="' +
-          escapeHtml(avatar) +
-          '" alt="" width="22" height="22" loading="lazy" decoding="async" />' +
-          '<span>' +
-          escapeHtml(o.label) +
-          '</span></a>'
-        );
-      })
-      .join('<span class="marquee__dot" aria-hidden="true">•</span>') +
-      '<span class="marquee__dot" aria-hidden="true">•</span>';
-
-    /* Duplicate so translateX(-50%) loops seamlessly */
+    /* Same pattern as the frameworks marquee: duplicated sequence for -50% loop */
     track.innerHTML = unit + unit;
   };
 
@@ -310,28 +292,33 @@
       el.innerHTML = `<li class="oss__empty">No ${kind} pull requests yet.</li>`;
       return;
     }
-    el.innerHTML = items
+    const shown = items.slice(0, PR_DISPLAY);
+    el.innerHTML = shown
       .map((pr) => {
         const { org, name } = splitRepo(pr.repo);
-        const badge =
-          kind === 'merged'
-            ? '<span class="oss__pill oss__pill--merged">Merged</span>'
-            : '<span class="oss__pill oss__pill--open">Open</span>';
-        return `
-          <li class="oss__item">
-            <a class="oss__link" href="${escapeHtml(pr.html_url)}" target="_blank" rel="noopener">
-              <span class="oss__repo">
-                <span class="oss__repo-org">${escapeHtml(orgLabel(org))}</span>
-                <span class="oss__repo-sep" aria-hidden="true">/</span>
-                <span class="oss__repo-slug">${escapeHtml(name)}</span>
-              </span>
-              <span class="oss__title">${escapeHtml(pr.title)}</span>
-              <span class="oss__meta">
-                ${badge}
-                <time datetime="${escapeHtml(pr.date)}">${escapeHtml(relativeTime(pr.date))}</time>
-              </span>
-            </a>
-          </li>`;
+        return (
+          '<li class="oss__item">' +
+          '<a class="oss__link" href="' +
+          escapeHtml(pr.html_url) +
+          '" target="_blank" rel="noopener">' +
+          '<span class="oss__row">' +
+          '<span class="oss__repo">' +
+          '<span class="oss__repo-org">' +
+          escapeHtml(orgLabel(org)) +
+          '</span>' +
+          '<span class="oss__repo-sep" aria-hidden="true">/</span>' +
+          '<span class="oss__repo-slug">' +
+          escapeHtml(name) +
+          '</span></span>' +
+          '<time datetime="' +
+          escapeHtml(pr.date) +
+          '">' +
+          escapeHtml(relativeTime(pr.date)) +
+          '</time></span>' +
+          '<span class="oss__title">' +
+          escapeHtml(pr.title) +
+          '</span></a></li>'
+        );
       })
       .join('');
   };
@@ -398,13 +385,23 @@
 
     const mergedItems = payload.merged.items || [];
     const openItems = payload.open.items || [];
-    renderOrgMarquee(collectOrgs(mergedItems, openItems));
+    try {
+      renderOrgMarquee(collectOrgs(mergedItems, openItems));
+    } catch {
+      /* keep seeded marquee text */
+    }
     renderPrList(mergedEl, mergedItems, 'merged');
     renderPrList(openEl, openItems, 'open');
     renderRepos(reposEl, payload.repos || []);
 
-    if (mergedCount) mergedCount.textContent = String(payload.merged.total ?? mergedItems.length);
-    if (openCount) openCount.textContent = String(payload.open.total ?? openItems.length);
+    if (mergedCount) {
+      const total = payload.merged.total ?? mergedItems.length;
+      mergedCount.textContent = String(total);
+    }
+    if (openCount) {
+      const total = payload.open.total ?? openItems.length;
+      openCount.textContent = String(total);
+    }
 
     if (updated) {
       updated.hidden = false;

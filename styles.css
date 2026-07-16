@@ -174,76 +174,25 @@ em { color: #d7d2ff; font-style: normal; font-weight: 500; }
 .marquee__track > span:nth-child(3n+1) { color: #cfd3e6; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 
+/* Full-bleed company strip inside the Open Source section */
 .marquee--orgs {
-  display: block;
-  margin: 0 0 40px;
-  padding: 18px 0 20px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: linear-gradient(180deg, rgba(34,211,238,.05), rgba(255,255,255,.015));
+  width: 100vw;
+  max-width: 100vw;
+  position: relative;
+  margin: 8px calc(50% - 50vw) 36px;
+  padding: 20px 0;
+  border-radius: 0;
+  border: none;
+  border-block: 1px solid var(--line);
+  background: rgba(255,255,255,.015);
   overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-.marquee--orgs[hidden] { display: none !important; }
-.marquee__eyebrow {
-  margin: 0 0 12px;
-  text-align: center;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--accent-2);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
 .marquee--orgs .marquee__track {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  width: max-content;
-  animation: marquee 40s linear infinite;
-}
-.marquee__dot {
-  font-family: "Sora", sans-serif;
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--muted-2);
-  flex-shrink: 0;
-}
-.marquee__org {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-  padding: 6px 14px 6px 8px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: rgba(255,255,255,.04);
-  font-family: "Sora", sans-serif;
-  font-weight: 600;
-  font-size: 1.05rem;
-  color: #e9ecf5;
-  transition: border-color .2s, background .2s, color .2s;
-}
-.marquee__org--pending {
-  border-style: dashed;
-  color: var(--muted);
-  font-size: .95rem;
-  font-weight: 500;
-}
-.marquee__org img {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  object-fit: cover;
-  background: var(--panel-2);
-}
-.marquee__org:hover {
-  border-color: rgba(34,211,238,.5);
-  background: rgba(34,211,238,.1);
-  color: #fff;
+  animation-duration: 56s; /* a bit slower than the frameworks strip */
 }
 @media (prefers-reduced-motion: reduce) {
-  .marquee__track,
-  .marquee--orgs .marquee__track { animation: none; }
+  .marquee__track { animation: none; }
 }
 
 /* ---------- Sections ---------- */
@@ -379,40 +328,42 @@ em { color: #d7d2ff; font-style: normal; font-weight: 500; }
 
 .oss__updated { display: block; margin-top: 10px; font-family: "JetBrains Mono", monospace; font-size: 12.5px; color: var(--muted-2); }
 
-.oss__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.oss__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .oss__col {
-  border: 1px solid var(--line); border-radius: var(--radius);
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
   background: linear-gradient(180deg, var(--panel), var(--bg-soft));
-  padding: 22px 20px 12px; min-height: 280px;
+  padding: 14px 12px 8px; min-height: 0;
 }
-.oss__colhead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px; padding: 0 4px; }
-.oss__colhead h3 { font-size: 1.05rem; font-weight: 600; }
-.oss__count { font-family: "JetBrains Mono", monospace; font-size: 12.5px; color: var(--muted-2); }
+.oss__colhead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 8px; padding: 0 4px; }
+.oss__colhead h3 { font-size: .95rem; font-weight: 600; }
+.oss__count { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--muted-2); }
 
-.oss__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
-.oss__item { border-radius: var(--radius-sm); }
+.oss__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; }
+.oss__item { border-radius: 8px; }
 .oss__link {
-  display: grid; gap: 4px; padding: 12px 12px;
-  border-radius: var(--radius-sm); border: 1px solid transparent;
+  display: grid; gap: 2px; padding: 8px 10px;
+  border-radius: 8px; border: 1px solid transparent;
   transition: background .2s, border-color .2s;
 }
 .oss__link:hover { background: rgba(255,255,255,.035); border-color: var(--line); }
+.oss__row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+}
 .oss__repo {
-  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 2px;
-  font-family: "JetBrains Mono", monospace; font-size: 11.5px; letter-spacing: .02em;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 2px; min-width: 0;
+  font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: .02em;
 }
 .oss__repo-org { color: #fff; font-weight: 600; }
 .oss__repo-sep { color: var(--muted-2); margin: 0 3px; }
 .oss__repo-slug { color: var(--accent-2); }
-.oss__title { font-size: .95rem; font-weight: 500; color: var(--text); line-height: 1.35; }
-.oss__meta { display: flex; align-items: center; gap: 10px; margin-top: 4px; font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: var(--muted-2); }
-
-.oss__pill {
-  display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 999px;
-  font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; border: 1px solid;
+.oss__row time {
+  flex-shrink: 0;
+  font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--muted-2);
 }
-.oss__pill--merged { color: #7dffb3; border-color: rgba(125,255,179,.35); background: rgba(125,255,179,.08); }
-.oss__pill--open { color: #c7b6ff; border-color: rgba(124,92,255,.45); background: rgba(124,92,255,.12); }
+.oss__title {
+  font-size: .84rem; font-weight: 500; color: var(--muted); line-height: 1.3;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
 
 .oss__more { margin-top: 48px; }
 .oss__morehead { margin-bottom: 22px; max-width: 560px; }
@@ -432,7 +383,7 @@ em { color: #d7d2ff; font-style: normal; font-weight: 500; }
 .oss__repo-meta { display: flex; flex-wrap: wrap; gap: 12px; font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--muted-2); }
 
 .oss__skeleton {
-  list-style: none; height: 72px; margin: 0 0 6px; border-radius: var(--radius-sm);
+  list-style: none; height: 44px; margin: 0 0 2px; border-radius: 8px;
   background: linear-gradient(90deg, rgba(255,255,255,.04), rgba(255,255,255,.08), rgba(255,255,255,.04));
   background-size: 200% 100%; animation: oss-shimmer 1.4s linear infinite;
 }
