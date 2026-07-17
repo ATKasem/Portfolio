@@ -24,9 +24,11 @@ The **Open Source** block on the homepage shows:
 - **Merged** / **Open PRs** — sectioned lists of upstream pull requests
 - **Also on GitHub** — public non-fork repos that are not already in the curated Work section
 
-On each deploy, GitHub Actions runs `scripts/sync-github.mjs` and writes `data/github.json` (using the Actions token so visitors are not hit by the unauthenticated Search API limit). The page loads that snapshot first. A short `sessionStorage` cache avoids refetch noise.
+On each deploy, GitHub Actions runs `scripts/sync-github.mjs` and writes `data/github.json` (using the Actions token so visitors are not hit by the unauthenticated Search API limit). The page loads that snapshot. A short `sessionStorage` cache avoids refetch noise for the same visitor.
 
-To refresh activity, push to `main` (or re-run the Pages workflow). Locally: `GITHUB_TOKEN=$(gh auth token) node scripts/sync-github.mjs`.
+The Pages workflow also runs on a **schedule every 2 hours**, so merged/open PRs and company chips refresh automatically without you pushing. You can still trigger it anytime with **Actions → Deploy to GitHub Pages → Run workflow**, or by pushing to `main`.
+
+Locally: `GITHUB_TOKEN=$(gh auth token) node scripts/sync-github.mjs`.
 
 Featured Work cards stay hand-written. To hide a repo from **Also on GitHub**, add its name to `HIDDEN_REPOS` in `main.js`.
 

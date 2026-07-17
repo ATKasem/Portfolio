@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  # Refresh Open Source data without a manual push (GitHub may delay cron a bit).
+  schedule:
+    - cron: "0 */2 * * *" # every 2 hours
   workflow_dispatch:
 
 permissions:
