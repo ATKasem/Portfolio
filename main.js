@@ -82,7 +82,7 @@
      Live GitHub — merged PRs, open PRs, other repos
      ========================================================= */
   const GITHUB_USER = 'ATKasem';
-  const CACHE_KEY = 'atkasem-github-oss-v5';
+  const CACHE_KEY = 'atkasem-github-oss-v6';
   const CACHE_TTL_MS = 30 * 60 * 1000;
   const PR_LIMIT = 100; /* GitHub search max per page — show the full list in-card */
   const REPO_LIMIT = 6;
@@ -110,7 +110,7 @@
   const ORG_LABELS = {
     apple: 'Apple',
     aws: 'AWS',
-    backstage: 'Backstage',
+    backstage: 'Spotify', /* Backstage is Spotify's open source platform */
     cloudflare: 'Cloudflare',
     facebook: 'Meta',
     firebase: 'Firebase',
@@ -277,17 +277,22 @@
     const unit = list
       .map((o) => {
         const key = String(o.org).toLowerCase();
-        /* Prefer brand marks where the GitHub avatar is not the public logo */
+        /* Prefer public company marks / names where the GitHub org differs */
         const brandIcons = {
           netflix: 'https://cdn.simpleicons.org/netflix/E50914',
+          backstage: 'https://cdn.simpleicons.org/spotify/1DB954',
+        };
+        const brandHrefs = {
+          backstage: 'https://github.com/spotify',
         };
         const avatar =
           brandIcons[key] ||
           'https://github.com/' + encodeURIComponent(o.org) + '.png?size=64';
+        const href = brandHrefs[key] || 'https://github.com/' + o.org;
         const iconClass = brandIcons[key] ? ' marquee__org-icon--brand' : '';
         return (
-          '<a class="marquee__chip marquee__org" href="https://github.com/' +
-          escapeHtml(o.org) +
+          '<a class="marquee__chip marquee__org" href="' +
+          escapeHtml(href) +
           '" target="_blank" rel="noopener">' +
           '<img class="marquee__org-icon' +
           iconClass +
